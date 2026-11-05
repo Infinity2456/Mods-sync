@@ -22,14 +22,23 @@ public final class ModSyncConfig {
             .comment("Максимум одновременных соединений синхронизации")
             .defineInRange("server.maxConnections", 8, 1, 256);
     public static final ModConfigSpec.ConfigValue<String> SECRET = B
-            .comment("Общий секрет (пароль) синхронизации. Должен совпадать на сервере и клиенте.",
-                    "Если задан: порт отдаёт моды только клиентам с этим секретом, а клиент проверяет подпись манифеста.",
-                    "Пустой секрет = без защиты: любой, кто видит порт, может скачать моды, а перехватчик трафика - подменить их.")
+            .comment("Общий секрет (пароль) синхронизации. Должен совпадать на сервере и клиенте. Используйте длинный случайный (16+ символов).",
+                    "Весь трафик шифруется (X25519 + AES-256-GCM) всегда. Секрет добавляет аутентификацию:",
+                    "порт отдаёт моды только клиентам с этим секретом, а клиент уверен, что говорит с настоящим сервером.",
+                    "Пустой секрет = трафик зашифрован от подслушивания, но активный перехватчик (MITM) может подменить моды, а скачать их может любой.")
             .define("server.secret", "");
     public static final ModConfigSpec.ConfigValue<List<? extends String>> EXCLUDED = B
             .comment("Моды, которые НЕ отправляются клиентам: modId или имя файла (например \"voicechat\" или \"admintools-1.0.jar\").",
-                    "Моды, у которых в neoforge.mods.toml зависимость от neoforge/minecraft помечена side=\"SERVER\", исключаются автоматически.")
+                    "Моды, у которых в neoforge.mods.toml зависимость от neoforge/minecraft помечена side=\"SERVER\", исключаются автоматически.",
+                    "ModSync обновляет и сам себя: если версия ModSync на клиенте отличается от серверной, клиент получит серверный jar.",
+                    "Чтобы отключить самообновление, добавьте сюда \"modsync\".")
             .defineListAllowEmpty("server.excludedMods", List.of(), () -> "", o -> o instanceof String);
+
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> REMOVE_MODS = B
+            .comment("ЧЁРНЫЙ СПИСОК: моды, которые клиенты должны УДАЛИТЬ, если они у них есть (modId или имя файла).",
+                    "Файл не стирается, а переносится в modsync/backup/ у клиента после закрытия игры. Сам ModSync удалить нельзя.",
+                    "Если мод одновременно раздаётся сервером (лежит в mods сервера), чёрный список для него игнорируется.")
+            .defineListAllowEmpty("server.removeMods", List.of(), () -> "", o -> o instanceof String);
 
     // ---- клиент ----
     public static final ModConfigSpec.ConfigValue<String> SERVER_ADDRESS = B
@@ -41,6 +50,11 @@ public final class ModSyncConfig {
     public static final ModConfigSpec.ConfigValue<String> CLIENT_SECRET = B
             .comment("Общий секрет синхронизации (см. server.secret). Должен совпадать с серверным.")
             .define("client.secret", "");
+    public static final ModConfigSpec.BooleanValue REQUIRE_SIGNED = B
+            .comment("Принимать самообновление ModSync только если jar подписан тем же ключом, что и установленный ModSync.",
+                    "false: если установленный ModSync не подписан, обновление принимается как раньше (по секрету и хэшу).",
+                    "true: без подписи обновление не принимается вообще (сначала поставьте подписанный ModSync вручную).")
+            .define("client.requireSignedSelfUpdate", false);
     public static final ModConfigSpec.IntValue CONNECT_TIMEOUT = B
             .comment("Таймаут подключения к серверу синхронизации (секунды)")
             .defineInRange("client.connectTimeoutSeconds", 10, 1, 120);

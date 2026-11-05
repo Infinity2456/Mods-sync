@@ -9,6 +9,7 @@ import net.neoforged.fml.loading.FMLPaths;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -48,7 +49,11 @@ public final class Restarter {
                 Files.write(file, lines, StandardCharsets.UTF_8);
                 String java = ProcessHandle.current().info().command()
                         .orElse(Path.of(System.getProperty("java.home"), "bin", "java").toString());
-                new ProcessBuilder(java, "-cp", jar.toString(), "dev.modsync.helper.RestartHelper",
+                // хелпер запускаем из КОПИИ jar: сам jar может быть заменён (самообновление ModSync),
+                // а Windows не даёт заменить файл, из которого работает процесс
+                Path helperJar = dir.resolve("helper.jar");
+                Files.copy(jar, helperJar, StandardCopyOption.REPLACE_EXISTING);
+                new ProcessBuilder(java, "-cp", helperJar.toString(), "dev.modsync.helper.RestartHelper",
                         Long.toString(ProcessHandle.current().pid()), file.toString())
                         .directory(dir.toFile())
                         .redirectErrorStream(true)

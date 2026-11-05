@@ -1,12 +1,12 @@
 modLoader="javafml"
 loaderVersion="[1,)"
-license="MIT"
+license="GPL-3.0"
 
 [[mods]]
 modId="modsync"
-version="1.0.0"
+version="1.1.0"
 displayName="ModSync"
-authors="you"
+authors="M4lph4s_"
 description='''
 Автоматическая синхронизация модов. Сервер открывает отдельный TCP-порт и раздаёт моды из своей папки mods;
 клиент при запуске игры обращается на адрес из конфига, сравнивает моды, докачивает недостающие и перезапускается.

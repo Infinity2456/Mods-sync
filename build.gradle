@@ -39,3 +39,22 @@ repositories {
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
+
+// Подпись релизного jar (нужна для проверки самообновления ModSync на клиентах, см. README):
+//   gradlew build signJar -PsignKeystore=/путь/modsync.jks -PsignAlias=modsync -PsignPass=пароль
+// Задача использует jarsigner из JDK и подписывает build/libs/modsync-<версия>.jar на месте.
+tasks.register('signJar') {
+    group = 'build'
+    description = 'Signs the mod jar with jarsigner (-PsignKeystore, -PsignAlias, -PsignPass)'
+    dependsOn tasks.named('jar')
+    doLast {
+        def ks = findProperty('signKeystore')
+        def alias = findProperty('signAlias')
+        def pass = findProperty('signPass')
+        if (!ks || !alias || !pass) {
+            throw new GradleException('Задайте -PsignKeystore, -PsignAlias и -PsignPass')
+        }
+        ant.signjar(jar: tasks.named('jar').get().archiveFile.get().asFile, keystore: ks, alias: alias,
+                storepass: pass, keypass: pass, digestalg: 'SHA-256')
+    }
+}

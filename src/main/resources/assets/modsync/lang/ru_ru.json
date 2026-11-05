@@ -1,7 +1,7 @@
 {
   "modsync.title": "ModSync",
   "modsync.checking": "Проверка модов на %s...",
-  "modsync.installed": "Моды установлены. Требуется перезапуск игры.",
+  "modsync.installed": "Моды обновлены. Требуется перезапуск игры.",
   "modsync.cancelled": "Отменено",
   "modsync.error": "ModSync: ошибка (%s)",
   "modsync.failed.hint": "Не удалось синхронизироваться с %s. Проверьте client.serverAddress / client.secret в config/modsync-common.toml и что порт синхронизации сервера открыт.",
@@ -11,5 +11,9 @@
   "modsync.restart.auto": "Игра перезапустится автоматически через несколько секунд.",
   "modsync.restart.manual": "Автоматический перезапуск недоступен. Закройте игру и запустите её снова.",
   "modsync.restart.now": "Перезапустить сейчас",
-  "modsync.restart.close": "Закрыть игру"
+  "modsync.restart.close": "Закрыть игру",
+  "modsync.speed": "Скорость: %s, осталось: %s",
+  "modsync.forget": "Забыть старый ключ и повторить",
+  "modsync.identity.hint": "Ключ сервера %s отличается от сохранённого при первом подключении. Возможно, кто-то выдаёт себя за сервер. Если администратор переустановил сервер или сбросил ключ, можно забыть старый.",
+  "modsync.reconnecting": "Соединение потеряно. Переподключаюсь и докачиваю (%s/%s)..."
 }
