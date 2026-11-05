@@ -1,0 +1,15 @@
+{
+  "modsync.title": "ModSync",
+  "modsync.checking": "Проверка модов на %s...",
+  "modsync.installed": "Моды установлены. Требуется перезапуск игры.",
+  "modsync.cancelled": "Отменено",
+  "modsync.error": "ModSync: ошибка (%s)",
+  "modsync.failed.hint": "Не удалось синхронизироваться с %s. Проверьте client.serverAddress / client.secret в config/modsync-common.toml и что порт синхронизации сервера открыт.",
+  "modsync.retry": "Повторить",
+  "modsync.continue": "Продолжить",
+  "modsync.download.file": "Файл: %s",
+  "modsync.restart.auto": "Игра перезапустится автоматически через несколько секунд.",
+  "modsync.restart.manual": "Автоматический перезапуск недоступен. Закройте игру и запустите её снова.",
+  "modsync.restart.now": "Перезапустить сейчас",
+  "modsync.restart.close": "Закрыть игру"
+}

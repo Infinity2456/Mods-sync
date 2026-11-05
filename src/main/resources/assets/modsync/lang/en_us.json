@@ -1,0 +1,15 @@
+{
+  "modsync.title": "ModSync",
+  "modsync.checking": "Checking mods with %s...",
+  "modsync.installed": "Mods installed. A game restart is required.",
+  "modsync.cancelled": "Cancelled",
+  "modsync.error": "ModSync: error (%s)",
+  "modsync.failed.hint": "Could not sync with %s. Check client.serverAddress / client.secret in config/modsync-common.toml and that the server's sync port is open.",
+  "modsync.retry": "Retry",
+  "modsync.continue": "Continue",
+  "modsync.download.file": "File: %s",
+  "modsync.restart.auto": "The game will restart automatically in a few seconds.",
+  "modsync.restart.manual": "Automatic restart is unavailable. Close the game and start it again.",
+  "modsync.restart.now": "Restart now",
+  "modsync.restart.close": "Close the game"
+}

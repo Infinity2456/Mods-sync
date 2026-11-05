@@ -1,0 +1,28 @@
+modLoader="javafml"
+loaderVersion="[1,)"
+license="MIT"
+
+[[mods]]
+modId="modsync"
+version="1.0.0"
+displayName="ModSync"
+authors="you"
+description='''
+Автоматическая синхронизация модов. Сервер открывает отдельный TCP-порт и раздаёт моды из своей папки mods;
+клиент при запуске игры обращается на адрес из конфига, сравнивает моды, докачивает недостающие и перезапускается.
+Должен стоять и на сервере, и на клиенте.
+'''
+
+[[dependencies.modsync]]
+modId="neoforge"
+type="required"
+versionRange="[21.1,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.modsync]]
+modId="minecraft"
+type="required"
+versionRange="[1.21.1,1.22)"
+ordering="NONE"
+side="BOTH"
