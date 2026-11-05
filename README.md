@@ -28,13 +28,6 @@ serverAddress = "play.example.com:25566"   # host:port; порт можно оп
 secret = "мой-пароль"                      # должен совпадать с server.secret
 ```
 
-## Сборка
-1. Нужен JDK 21. Wrapper не приложен: выполните `gradle wrapper --gradle-version 8.10` (или скопируйте `gradlew`, `gradlew.bat`, `gradle/` из MDK NeoForge 1.21.1).
-2. `./gradlew build` -> `build/libs/modsync-1.0.0.jar`
-3. Положите один и тот же jar в `mods` на сервере и на клиенте.
-4. Первый запуск создаст `config/modsync-common.toml` - заполните его (см. ниже).
-5. Если версия NeoForge в `gradle.properties` недоступна - возьмите актуальную 21.1.x.
-
 ## Как решается "что отправлять"
 - Отправляются все jar из `mods` сервера, кроме: самого ModSync, списка `server.excludedMods` (modId или имя файла) и модов,
   у которых зависимость от neoforge/minecraft в `neoforge.mods.toml` помечена `side="SERVER"`.
